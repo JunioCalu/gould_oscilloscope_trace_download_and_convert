@@ -27,8 +27,6 @@ use File::Basename;
 # [-+]?\d+\.\d+[eE][-+]?\d+  if we copy this into a variable we need some extra \
 $sci_num = "[-+]?\\d+\\.\\d+[eE][-+]?\\d+";
 
-print "Usage: tracks2csv.pl trackfile.dat > trackfile.csv\n";
-
 my $in_file = "./";
 $num_args = $#ARGV + 1;
 if ($num_args != 1) {
@@ -38,11 +36,15 @@ else
 {
   $in_file .= $ARGV[0];
 }
+
 open (INFILE, "<$in_file") ||
-    die "cannot open $in_file";
+    die "cannot open $in_file [Usage: ./tracks2csv.pl trackfile.dat > trackfile.csv]";
 while (<INFILE>) {
   $t .= $_;
 }
+close(INFILE) ||
+    die "can't close $in_file";
+
 
 # /s means ignore newlines (may occur in the data section)
 
@@ -60,9 +62,9 @@ $trig_delay = sprintf("%.10g", $2);
 #trigger point in seconds with respect to start of data
 print "#Trigger delay:     \t", $trig_delay, "\n";
 $mesial_voltage = sprintf("%.10g", $3);
-#0xff correlates with y-max position on the scope screen, regardless offset
-#0x00 correlates with y-min position on the scope screen, regardless offset
-#umrechnung: phys = 2*(hex/0xff)*mesial_voltage-mesial_voltage-offset
+#0xff correlates with y-max position on the scope screen, regardless offset and magnification
+#0x00 correlates with y-min position on the scope screen, regardless offset and magnification
+#umrechnung: phys = 2*(data_byte/0xff)*mesial_voltage-mesial_voltage-offset
 print "#Mesial voltage:    \t", $mesial_voltage, "\n";
 $offset = sprintf("%.10g", $4);
 #offset (channel position) in physical units
@@ -97,8 +99,5 @@ foreach my $sample (@data){
 #    print "",$sample, "\n";
 #  }
 #}
-
-close(INFILE) ||
-    die "can't close $in_file";
 
 exit 0;
