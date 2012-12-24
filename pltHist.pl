@@ -67,11 +67,11 @@ syswrite(GP, "load 'pltOptions.plt' \n");
 
 SWITCH: {
   #single plot (one file)
-  $numplotmode == 1 && do {  syswrite(GP, "plot \"$plotfile1\" using 1:2 with lines title \"test\" lw 0.5 \n");
+  $numplotmode == 1 && do {  syswrite(GP, "plot \"$plotfile1\" using 1:2 with lines title \"$plotfile1\" lw 1.0 \n");
                              last SWITCH;
                           };
   #double plot (two files at one time)
-  $numplotmode == 2 && do {  syswrite(GP, "plot \"$plotfile1\" using 1:2 with lines lw 0.5, \"$plotfile2\" using 1:2 with lines lw 0.5\n");
+  $numplotmode == 2 && do {  syswrite(GP, "plot \"$plotfile1\" using 1:2 with lines lw 1.0, \"$plotfile2\" using 1:2 with lines lw 1.0\n");
                              last SWITCH;
                           };
   #plot with background subtracted

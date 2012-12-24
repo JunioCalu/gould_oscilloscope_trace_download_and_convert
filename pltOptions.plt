@@ -24,15 +24,15 @@ set title "DSO 650 Gould Plot" font "Arial,16"
 #set logscale y
 #set nologscale y
 #set yrange [0:700]
-set ylabel 'Volts'
+set ylabel 'Voltage [V]'
 set grid ytics lt 0 lw 1 lc rgb "#909070"
 #set xrange [0:700]
-set xlabel 'Time'
+set xlabel 'Time [sec]'
 set grid xtics lt 0 lw 1 lc rgb "#909070"
-#set x2tics ("xy keV" 93,"xz keV" 139)
+#set x2tics ("xy V" 93,"xz V" 139)
 #set x2tics rotate 
 #set grid x2tics lt 0 lw 1 lc rgb "#909070"
-#set x2label "Energy [keV]"
+#set x2label "V [V]"
 set size ratio 0.45
 #set multiplot
 set nomultiplot
