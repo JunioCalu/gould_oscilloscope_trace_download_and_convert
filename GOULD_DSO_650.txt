@@ -1,0 +1,340 @@
+
+:ABORT (assertive only)
+:ACQuisition
+    AVeraGe
+        ENable numeric data|OFF|ON
+        FACTor numeric data|2|4|8|16|32|64|128|256|512|1024
+    GLitchDETect numeric data|OFF|ON
+    MEMoryLENgth numeric data
+    MOde REfresh|ROll
+    RUN Single|Continuous
+    STatus (interrogative only) string data
+    TimeBASE numeric data|10E-9|20E-9|50E-9|100E-9|125E-9|200E-9|500E-9|1E-6|2E-6|5E-6|10E-6|20E-6|50E-6|100E-6|200E-6|500E-6|1E-3|2E-3|5E-3|10E-3|20E-3|50E-3|100E-3|200E-3|500E-3|1|2|5|10|20|50|100|200|EXTernal
+:ALL (interrogative only)
+:AUTosetup (assertive only)
+:BandwidthLimit NOne|HUNdred|TWEnty|ONE
+:BEEP (assertive only) numeric data
+:CALibrate
+    ENable numeric data|OFF|ON
+    FORce (assertive only)
+:CHANnel[1234]
+    ADD numeric data|OFF|ON
+    COUPling AC|DC|GND
+    HOld numeric data|OFF|ON
+    POSition numeric data
+    PRObe numeric data
+    RANGe numeric data
+    STAte OFF|ON|INVert
+    TERM50 numeric data|OFF|ON
+    UNcal numeric data|OFF|ON
+    VARiable numeric data
+:CURSor
+    MODE ABS|DELTA
+    TRAce TRace1M|TRace1Z|TRace2M|TRace2Z|TRace3M|TRace3Z|TRace4M|TRace4Z|REFerenceTRace1M|REFerenceTRace1Z|REFerenceTRace2M|REFerenceTRace2Z|OFF
+    Xpos numeric data
+    Ypos (interrogative only) numeric data
+    ScreenXpos (interrogative only) numeric data
+    ScreenYpos (interrogative only) numeric data
+:DATE bulk data
+:DATE
+    FORMAT MM-DD-YY|DD-MM-YY
+:DATum
+    Xpos numeric data
+    Ypos numeric data
+    ScreenXpos (interrogative only) numeric data
+    ScreenYpos (interrogative only) numeric data
+:DISPlay
+    ALLColors (assertive only) DEFAULT1|DEFAULT2
+    BACKground
+        COLor numeric data, numeric data, numeric data
+    GRATicule
+        COLor numeric data, numeric data, numeric data
+        STAte numeric data|OFF|ON
+    GRatIculeiNTersection
+        COLor numeric data, numeric data, numeric data
+    HOLDAll numeric data|OFF|ON
+    MAXmin numeric data|OFF|ON
+    PERSISTence OFF|ON
+    PERSSWEeps numeric data|10|20|50|100|200|500|CONTinuous
+    PERSDotjoin numeric data|OFF|ON
+    PERSMode TIME|SWEeps
+    PERSTime numeric data|0.5|2|5|15|30|90|CONTinuous
+    REFerenceTRace[12]
+        STAte numeric data|OFF|ON
+    SEParation numeric data
+    SWEep Main|Zoom|MainandZoom
+    TEXTCURSors
+        COLor numeric data, numeric data, numeric data
+    TRace{1M,1Z,2M,2Z,3M,3Z,4M,4Z,REF1M,REF1Z,REF2M,REF2Z}
+        COLor numeric data, numeric data, numeric data
+        STAte numeric data|OFF|ON
+    TRACEDotjoin numeric data|OFF|ON
+    TRaceINTersection
+        COLor numeric data, numeric data, numeric data
+    XSHift numeric data
+    XY numeric data|OFF|ON
+    XYPERSistence
+        COLor numeric data, numeric data, numeric data
+    ZOOM numeric data|OFF|2|5|10|20|50|100|200|500|1000
+    ZoomPOSition numeric data
+:HELP (interrogative only)
+:KEYclick numeric data|OFF|ON
+:LER (interrogative only) numeric data
+:LIMits
+    DISPlay numeric data|OFF|ON
+    LOWer (assertive only)
+    MODE OFF|ON|FAIL
+    PlotonFAIL numeric data|OFF|ON
+    UPper (assertive only)
+:LTER (interrogative only) numeric data
+:MassMEMory
+    COPY
+        DESTination
+            DEVice RamDISK
+            RuNnAMe string data
+            RuNnUMber numeric data
+            SETup string data
+            TRACeNAMe string data
+            USER string data
+        EXECute (assertive only)
+        SOurce
+            DEVice RamDISK
+            RuNnAMe string data
+            RuNnUMber numeric data
+            SETup string data
+            TRACeNAMe string data
+            USER string data
+        TYPE USER|SETup|SEQuence|RuNnAMe|RuNnUMber|TRACe
+    RECall
+        EXECute (assertive only)
+        RuNnUMber numeric data
+        TRACe TRace1|TRace2|TRace3|TRace4|REFerenceTRace1|REFerenceTRace2|ALL
+        TRACeNAMe string data
+        TYPE TRACES|SETup|TRACesANDSETup|SEQuence
+    SAVE
+        EXECute (assertive only)
+        RuNnUMber numeric data
+        TYPE TRACES|SETup|TRACesANDSETup|SEQuence
+    SAVeRECall
+        DEVice RamDISK
+        RuNnAMe string data
+        SETup string data
+        USER string data
+    UTILities
+        CREate (assertive only) USER|RuNnAMe|RuNnUMber
+        DEVice RamDISK
+        DELete (assertive only) USER|SETup|SEQuence|RuNnAMe|RuNnUMber|TRACe
+        FORMat (assertive only)
+        LIST (interrogative only) DEVice|USER|SETup|SEQuence|RuNnAMe|RuNnUMber|TRACeNAMe
+        NEWNAMe string data
+        NEWNUMber numeric data
+        REName (assertive only) DEVice|USER|SETup|SEQuence|RuNnAMe|RuNnUMber|TRACeNAMe
+        RuNnAMe string data
+        RuNnUMber numeric data
+        SETup string data
+        TRACeNAMe string data
+        USER string data
+        VERIFYwrites numeric data|OFF|ON
+:MEASurements
+    STATE numeric data|OFF|ON
+    FULLRESolution numeric data|OFF|ON
+    YT
+        FUnction
+            MEASurement numeric data, CURsor|TOP|BASE|AMPlitude|PEAKtopeak|MAX|MIN|RISEtime|FALLtime|OVERshoot|PREshoot|PULSEwidth|FREQuency|PERIOD|DUTYcycle|RMS|ACRMS|AREA|, numeric data|SELecTedtRace|TRace1|TRace2|TRace3|TRace4|REFerenceTRace1|REFerenceTRace2
+        CLEARlist (assertive only)
+        DELete (assertive only) numeric data
+        DISplay numeric data, numeric data|OFF|ON
+        NAME numeric data, string data
+        BOUnds numeric data, BETweenCURsors|ALLdata|PREViousMEASurement
+        TOPbase numeric data, CURsors|STATistical
+        MARKers numeric data, numeric data|OFF|ON
+        LOWtrans numeric data, numeric data
+        HIGHtrans numeric data, numeric data
+        CROSSing numeric data, DATum|GRound|PERCENTtopbase
+        CROssLEVel numeric data, numeric data
+        LEFTtrans numeric data, numeric data
+        RIGHTtrans numeric data, numeric data
+        REFerence numeric data, DATum|GRound
+        RESult (interrogative only) numeric data
+        RESultNUMeric (interrogative only) numeric data
+:MENU OFF|DISPlay Master|CAPture Master|SAVe RECall Master|PROBe Gain selection|CURrent Status|PLOT configuration|SET Time AND Date|RS423 PORT|50OHM select|CH12 main and zoom Trace Display|I/O Master|BANDWidth and calibration|PERSistence|CH34 main and zoom Trace Display|GPIB|REF Trace Copy|TEST Limits|SPECial|MATH Master|AVeraGing|MEMory Length|DISPlay COLor|CUSTomize COLor|OPTions CONFiguration|DEVice UTILities|FORmat DEVice|COPY|SAVe|RECall|FACTory OPTions CONFiguration|Trigger Tool Mode|PULSE Width rigger|RATE trigger|SKEW trigger|SLEW rate trigger|MISSing trigger|COMBination trigger|BAND trigger|RUNT trigger|A DELay Time gates b|DELay by N|DIVide by N|B GATes A delay by n|A DELay N gates B|STanDard trigger|TV trigger|TRIGger Setup
+:MENU
+    TRANSparency numeric data|OFF|ON
+:PLOT (assertive only)
+:PLOT
+    DEst INTernal|EXTernal
+    GRaticule OFF|SOLID|BROKEN
+    LABELsdatecursor numeric data|OFF|ON
+    LENgth 1|2|5|10|20|50|100
+    MOde AUTO|SINgle
+    PEnchange (assertive only)
+    PERStype OFF|SOLID|BROKEN
+    TYPE WAVEform|ENVelope
+    LIMitstype OFF|LINE|FILLed
+:POSTStore
+    REStore (assertive only)
+    XMAg numeric data
+    XSHift numeric data
+    YMAg numeric data
+    YSHift numeric data
+:REFerenceTRace[12]
+    COPY (assertive only) TRace1|TRace2|TRace3|TRace4
+    TRaceSCaling
+        X numeric data|10E-9|20E-9|50E-9|100E-9|125E-9|200E-9|500E-9|1E-6|2E-6|5E-6|10E-6|20E-6|50E-6|100E-6|200E-6|500E-6|1E-3|2E-3|5E-3|10E-3|20E-3|50E-3|100E-3|200E-3|500E-3|1|2|5|10|20|50|100|200|EXTernal
+        Y numeric data
+:RS423
+    BAUD numeric data|110|300|600|1200|2400|4800|9600
+    BPC numeric data
+    ECHOandprompt numeric data|OFF|ON
+    HAnd None|XONxoff|RTScts
+    PARity None|Even|Odd|Mark|Space
+    STopBits numeric data
+:SER (interrogative only) numeric data
+:SYStem
+    ERRor (interrogative only) NUMBer|STRing
+    ERRorCLear (assertive only)
+    HEADer numeric data|OFF|ON
+    LONGform numeric data|OFF|ON
+:TEXT{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15} string data
+:TIME numeric data, numeric data, numeric data
+:TRace
+    TRaceSCaling[1234]
+        X numeric data|10E-9|20E-9|50E-9|100E-9|125E-9|200E-9|500E-9|1E-6|2E-6|5E-6|10E-6|20E-6|50E-6|100E-6|200E-6|500E-6|1E-3|2E-3|5E-3|10E-3|20E-3|50E-3|100E-3|200E-3|500E-3|1|2|5|10|20|50|100|200|EXTernal
+        Y numeric data
+:TRANsfer
+    ACQuisition
+        ALL numeric data, bulk data
+        DATAonly numeric data, bulk data
+        WindowSTArt numeric data
+        WindowSTOp numeric data
+    FILE
+        DEVice RamDISK
+        EXECute bulk data
+        RuNnAMe string data
+        RuNnUMber numeric data
+        SETup string data
+        TRACeNAMe string data
+        TYPE TRACE|SETUP|SEQUENCE
+        USER string data
+    FORMat TEXT|RAW
+    GRAPH
+        ALL numeric data, bulk data
+        DATAonly numeric data, bulk data
+        WindowSTArt numeric data
+        WindowSTOp numeric data
+    HISTogram
+        ALL numeric data, bulk data
+        DATAonly numeric data, bulk data
+        WindowSTArt numeric data
+        WindowSTOp numeric data
+    LIMIT
+        LOWer bulk data
+        UPper bulk data
+        WindowSTArt numeric data
+        WindowSTOp numeric data
+    MAIN
+        DATAonly (interrogative only) TRace1|TRace2|TRace3|TRace4|REFerenceTRace1|REFerenceTRace2, bulk data
+        WindowSTArt numeric data
+        WindowSTOp numeric data
+    RADIX OCTal|DECimal|HEXadecimal
+    REFerenceTRace
+        ALL numeric data, bulk data
+        DATAonly numeric data, bulk data
+        WindowSTArt numeric data
+        WindowSTOp numeric data
+    SEQuence[12345678] bulk data
+    ZOOM
+        DATAonly (interrogative only) TRace1|TRace2|TRace3|TRace4|REFerenceTRace1|REFerenceTRace2, bulk data
+        WindowSTArt numeric data
+        WindowSTOp numeric data
+:TRIGger
+    AUTotrig numeric data|OFF|ON
+    DELay numeric data
+    PREPost PREtrigger|POSTtrigger
+    PREtrig numeric data
+    SYStem STanDard|TV|TOOLs
+    SELect A|B
+:TRIGger[AB]
+    AUTotrig numeric data|OFF|ON
+    DELay numeric data
+    LEVel[1234] numeric data
+    LEVel numeric data
+    PREPost PREtrigger|POSTtrigger
+    PREtrig numeric data
+    SLOpe[1234] PLus|MINus
+    SLOpe PLus|MINus
+    SOurce CHANnel1|CHANnel2|CHANnel3|CHANnel4|AUX
+    AUXsource EXTernal|LINE
+    COUpling AC|ACHFREJ|DC|DCHFREJ
+:TRIGgerTOOLs
+    ADELayNGatesB
+        COUNT numeric data
+    ADELayTimeGatesB
+        PERiod numeric data
+    BAND
+        WHEN ENTERsband|LEAVEsband
+    BGAtesaDELayN
+        COUNT numeric data
+    COMBination
+        PERiod numeric data
+    DELaybyN
+        COUNT numeric data
+    DIVidebyN
+        CONTrol COUNT|PHASE
+        COUNT numeric data
+        PHASEslip (assertive only) PLus|MINus
+    FREQuency
+        FREQuency numeric data
+        PERiod numeric data
+        WHENFrequency LESSthan|GREATERthan
+        WHENPeriod LESSthan|GREATERthan
+    MISSing
+        PERiod numeric data
+    MODE Pulse Width|FREQuency|SKEW|SLEWrate|MISSing|COMBination|BAND|RUNT|ADELayTimeGatesB|DELaybyN|DIVidebyN|BGAtesaDELayN|ADELayNGatesB
+    PulseWidth
+        WHEN LESSthan|GREATERthan
+        WIDth numeric data
+    RUNT
+        POLarity POSitive|NEGative
+    SKEW
+        PERiod numeric data
+        WHEN LESSthan|GREATERthan
+    SLEWrate
+        PERiod numeric data
+        WHEN LESSthan|GREATERthan
+:TRIGgerTOOLs[AB]
+    PulseWidth
+        POLarity{1,2,3,4,EXT} POSitive|NEGative
+    FREQuency
+        EDGE{1,2,3,4,EXT} RISing|FALLing
+    COMBination
+        AnyChangeQUAlification NOne|ENabled
+        HiLowQUAlification GREATERthan|LESSthan|CLocked|ENabled|NOne
+        SOurce{1,2,3,4,EXT} ON|OFF|ENabled|CLocked
+        TRIGger ANYHi|ANYLo|ALLHi|ALLLo|ANYChange
+    SLEWrate
+        EDGE{1,2,3,4,EXT} RISing|FALLing
+:TRIGgerTV
+    DELay numeric data
+    FIELD ODD|EVEn
+    LINEnumber numeric data
+    MODE FRAME|LINE|FrameGATEsLine
+    SOurce CHANnel1|CHANnel2|CHANnel3|CHANnel4
+    STanDard PAL|NTSC
+    syncPOLarity[1234] Positive|Negative
+    syncPOLarity Positive|Negative
+    SYStem SYNCpulse|LINEnumber
+:*CAL (interrogative only) numeric data
+:*CLS (assertive only)
+:*ESE numeric data
+:*ESR (interrogative only) numeric data
+:*IDN (interrogative only)
+:*OPC
+:*OPT (interrogative only)
+:*RST (assertive only)
+:*SRE numeric data
+:*STB (interrogative only) numeric data
+:*TRG (assertive only)
+:*TST (interrogative only) numeric data
+:*WAI (assertive only)
+
