@@ -1,6 +1,6 @@
 # RS-423/RS-232 Oscilloscope downloader and track-file converter for GOULD Datasys series (DSO 650 and others)
 
-Command line program which connects to a GOULD DSO 650 oscilloscope (most likely GOULD DSO 7xx, 8xx and 9xx as well) via
+Command line program which connects to a GOULD DSO 650 oscilloscope (most likely GOULD DSO 7xx and 9xx as well) via
 RS-423 on scope side and RS-232 on PC side. Screenshots can be made (plot screen) and data files (tracks) can be downloaded.
 The screenshots (HPGL format) can be postprocessed into encapsulated postscript (eps). The track files (FAMOS/.DAT) can be converted
 into Excel-csv.
