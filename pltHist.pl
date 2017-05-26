@@ -67,7 +67,7 @@ syswrite(GP, "load 'pltOptions.plt' \n");
 
 SWITCH: {
   #single plot (one file)
-  $numplotmode == 1 && do {  syswrite(GP, "plot \"$plotfile1\" using 1:2 with lines title \"$plotfile1\" lw 1.0 \n");
+  $numplotmode == 1 && do {  syswrite(GP, "plot \"$plotfile1\" using 1:2 with lines title \"$plotfile1\" lw 1.0 lt rgb \"red\" \n");
                              last SWITCH;
                           };
   #double plot (two files at one time)
