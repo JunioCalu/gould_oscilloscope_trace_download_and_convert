@@ -32,6 +32,7 @@
 #include <fcntl.h>
 #include <termios.h>
 #include <regex.h>
+#include <time.h>
 #include "serial-setup.h"
 
 
@@ -106,29 +107,47 @@ int getkey() {
 
 
 void
-get_data (const int fd, char *buf, size_t *count)
+reset_timer(struct timespec *timer_start){
+  clock_gettime(CLOCK_MONOTONIC, timer_start);
+}
+
+bool
+timer_poll_timeout(const struct timespec *timer_start, struct timespec *timer_act, const double thresh){
+  clock_gettime(CLOCK_MONOTONIC, timer_act);
+  const double time_elapsed = (double)timer_act->tv_sec+1.0e-9*(double)(timer_act->tv_nsec)-
+                              ((double)timer_start->tv_sec+1.0e-9*(double)(timer_start->tv_nsec));
+  return(time_elapsed > thresh);
+}
+
+void
+get_plotdata (const int fd, char *buf, size_t *count, double timer1_thresh, double timer2_thresh)
 {
   int receive_state = 0;
-  int key_pressed = 0;
   char ch;
+  int key_pressed = 0;
+  bool timeout = false;
+  bool get_data = false;
+  struct timespec timer_start = {0,0}, timer_act = {0,0};
 
+  reset_timer(&timer_start);
   (*count) = 0;
-  printf("press <ESC> to continue if transfer has finished\n");
-  while (key_pressed != 0x1b){
+  printf("press now the plot-button or press <ESC> to cancel transmission\n");
+  while ((key_pressed != 0x1b) && (!timeout)){
     if (read(fd, &ch, 1)){
+         get_data = true;
         //printf("Rx << 0x%x  \r", (int)(ch)&0xff);
          switch (receive_state) {
             case 0:
-              printf("Rx << \\ \r");
+              printf("Receiving << \\ \r");
             break;
             case 1:
-              printf("Rx << | \r");
+              printf("Receiving << | \r");
             break;
             case 2:
-              printf("Rx << / \r");
+              printf("Receiving << / \r");
             break;
             case 3:
-              printf("Rx << - \r");
+              printf("Receiving << - \r");
             break;
             default:
             break;
@@ -138,17 +157,79 @@ get_data (const int fd, char *buf, size_t *count)
         }else{
            receive_state ++;
         }
+        if (*count == MAX_BUF_SIZE) {
+          printf("data buffer over run (too much data received - increase buffer)\n");
+          exit(EXIT_FAILURE);
+        }
         fflush(stdout);
         buf[*count] = ch;
         (*count)++;
-        if (*count == MAX_BUF_SIZE) {
-          printf("data buffer over run (too much data)\n");
-          exit(EXIT_FAILURE);
-        }
+        reset_timer(&timer_start);
     }
     key_pressed = getkey();
+    //TX/RX connection only - hence if after timer_thresh no new data is received
+    //assume end of transmission
+    if (get_data){
+       timeout = timer_poll_timeout(&timer_start, &timer_act, timer1_thresh);
+    }else{
+       timeout = timer_poll_timeout(&timer_start, &timer_act, timer2_thresh);
+    }
   }
-  printf ("<< %d bytes \n", (int)(*count));
+  printf ("<< %d bytes received \n", (int)(*count));
+}
+
+
+void
+get_trackdata (const int fd, char *buf, size_t *count, double timer_thresh)
+{
+  int receive_state = 0;
+  char ch;
+  int key_pressed = 0;
+  bool timeout = false;
+  struct timespec timer_start = {0,0}, timer_act = {0,0};
+
+  reset_timer(&timer_start);
+  (*count) = 0;
+  printf("press <ESC> to cancel transmission\n");
+  while ((key_pressed != 0x1b) && (!timeout)){
+    if (read(fd, &ch, 1)){
+        //printf("Rx << 0x%x  \r", (int)(ch)&0xff);
+         switch (receive_state) {
+            case 0:
+              printf("Receiving << \\ \r");
+            break;
+            case 1:
+              printf("Receiving << | \r");
+            break;
+            case 2:
+              printf("Receiving << / \r");
+            break;
+            case 3:
+              printf("Receiving << - \r");
+            break;
+            default:
+            break;
+        }
+        if (receive_state == 3) {
+           receive_state = 0;
+        }else{
+           receive_state ++;
+        }
+        if (*count == MAX_BUF_SIZE) {
+          printf("data buffer over run (too much data received - increase buffer)\n");
+          exit(EXIT_FAILURE);
+        }
+        fflush(stdout);
+        buf[*count] = ch;
+        (*count)++;
+        reset_timer(&timer_start);
+    }
+    key_pressed = getkey();
+    //TX/RX connection only - hence if after timer_thresh no new data is received
+    //assume end of transmission
+    timeout = timer_poll_timeout(&timer_start, &timer_act, timer_thresh);
+  }
+  printf ("<< %d bytes received \n", (int)(*count));
 }
 
 
@@ -222,17 +303,17 @@ void convert_and_save_disc(const char *file, const void *buf, const size_t count
   int r;
   regex_t reg;
   regmatch_t match[5];
-  
+
   /*
-  |CD,1,a,1,b,c,d,e; 
+  |CD,1,a,1,b,c,d,e;
     X-axis:
     a=sample rate (default 1. for ext clock)
     b=trigger delay
     c=0 for ext clock,1 for DSO timebase
     d=length of e string (1 or 6)
     e=EXTCLK or s (s=seconds)
-    
-    we search for one or more character not containing ',' which are separated by ',' 
+
+    we search for one or more character not containing ',' which are separated by ','
   */
   regcomp(&reg, "\\|CD,1,([^,]+),1,([^,]+),([^,]+),[^,]+,[^,]+;", REG_EXTENDED);
   r=regexec(&reg, buf, 4, match, 0);
@@ -267,8 +348,8 @@ void convert_and_save_disc(const char *file, const void *buf, const size_t count
     c=1 if variable volts/div off, else 0
     d=length of e string (1 or 4)
     e=V if variable volts/div off, else V NC
- 
-    we search for one or more character not containing ',' which are separated by ',' 
+
+    we search for one or more character not containing ',' which are separated by ','
   */
   regcomp(&reg, "\\|CR,1,1,0,1,[^,]+,[^,]+,[^,]+,[^,]+,([^,]+),([^,]+),([^,]+),[^,]+,[^,]+;",REG_EXTENDED);
   r=regexec(&reg, buf, 4, match, 0);
@@ -298,7 +379,7 @@ void convert_and_save_disc(const char *file, const void *buf, const size_t count
   /*
   |CS,1,a,b;
     a=the number of data bytes
-    b=the data itself  
+    b=the data itself
   |CA,1,0000000000;
     Footer
   */
@@ -352,10 +433,8 @@ print_help(void)
     printf("         ./dso_serial -d /dev/ttyUSB0 -o plot.hpgl -s\n\r");
     printf("         ./dso_serial -d /dev/ttyUSB0 -o trace1.dat -n 20 -p TR1_5K0.DAT\n\r\n\r");
     printf("  NOTES\n\r");
-    printf("         Program assumes a RX/TX connection only. Hence you have to wait until all the\n\r");
-    printf("         data is downloaded until pressing the ESC-button. Just follow the instructions\n\r\n\r");
     printf("  AUTHOR\n\r");
-    printf("         Samplemaker\n\r\n\r");
+    printf("         samplemaker\n\r\n\r");
 }
 
 
@@ -412,11 +491,11 @@ int main(int argc, char *argv[])
   switch (mode) {
      case SCREENSHOT:
        //listen and wait until the plot button is pressed
-       get_data (fd, buf, &count);
+       get_plotdata (fd, buf, &count, 2.2, 120.0);
        hexdump(buf, count);
        save_disc(out_file, buf, count);
      break;
-     case GETFILE:  
+     case GETFILE:
        if ((trancmd.tracename != NULL) & (trancmd.runnumber != NULL)){
          //assemble string const char cmd_buf[] = "TRAN:FILE:RNUM 6";
          const char cmd_rnum[] = "TRAN:FILE:RNUM "; //creates a null terminated string
@@ -445,7 +524,7 @@ int main(int argc, char *argv[])
          strncpy(cmd_buf, cmd_exec, strlen(cmd_exec));
          send_cmd(fd,cmd_buf,strlen(cmd_exec));
          //usleep(delay);
-         get_data (fd, buf, &count);
+         get_trackdata (fd, buf, &count, 2.2);
          hexdump(buf, count);
          convert_and_save_disc(out_file, buf, count);
        }

@@ -1,14 +1,14 @@
-# RS-423/RS-232 Oscilloscope downloader and track-file converter for GOULD Datasys series (DSO 650 and others)
+# RS-423/RS-232 Oscilloscope downloader and data file converter for GOULD Datasys series (DSO 650 and others)
 
-Command line program which connects to a GOULD DSO 650 oscilloscope (most likely GOULD DSO 7xx and 9xx as well) via
+Command line program which connects to a GOULD Datasys DSO 650 oscilloscope (most likely GOULD DSO 7xx and 9xx as well) via
 RS-423 on scope side and RS-232 on PC side. Screenshots can be made (plot screen) and data files (tracks) can be downloaded.
 The screenshots (HPGL format) can be postprocessed into encapsulated postscript (eps). The track files (FAMOS/.DAT) can be converted
 into Excel-csv.
 
   * `dso_serial` connects via RS-232/RS-423 to the DSO. A helpscreen on startup shows all the possible options (tested with GOULD DSO 650)
-  * `dat2csv.pl` is a perl script which converts a trace file (.DAT) into a excel-csv file. Usage: `./dat2csv.pl trackfile.dat > trackfile.csv` (successfully tested with GOULD DSO 650 and GOULD DSO 740 track files)
+  * `dat2csv.pl` is a perl script which converts a trace file (.DAT) into an Excel-csv file. Usage: `./dat2csv.pl trackfile.dat > trackfile.csv` (successfully tested with GOULD DSO 650 and GOULD DSO 740 track files)
   * `hpgl2eps.sh` is a shell script which forces a conversion from HPGL-Plot into eps & pdf. Usage: `./hpgl2eps.sh plot.hpgl`
-  * `pltHist.pl` is a perl script which plots the csv file. Usage: `./pltHist.pl trackfile.csv`
+  * `pltHist.pl` is a perl script which plots the csv file via gnuplot. Usage: `./pltHist.pl trackfile.csv`
 
 ## Building
 
@@ -45,8 +45,7 @@ On the scope the signals can be found as follows:
   * SAVE/RECALL MASTER MENU
     * Plot/Save Key: PLOT
 
-Start `./dso_serial -d /dev/ttyUSB -o plot.hpgl -s` then press the plot key on the scope and after finishing the download
-press ESC to write down the hpgl data. The data can be converted to eps via hp2xx.
+Start `./dso_serial -d /dev/ttyUSB -o plot.hpgl -s` then press the plot key on the scope. The HPGL data can be converted to eps via hp2xx.
 
 ## Set up the GOULD DSO 650 to download trace files
 
@@ -58,7 +57,7 @@ which is stored under runnnumber "20" you have to call the program via `./dso_se
 
 ## Software and system requirements
 
-dso_serial can be build and run on linux host systems. "dat2csv.pl" should work on Windows as well.
+dso_serial can be build and run on linux host systems. "dat2csv.pl" should work on windows as well.
 Necessary packages are:
 
   * [gcc][gcc]
